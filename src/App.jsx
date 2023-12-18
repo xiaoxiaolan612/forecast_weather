@@ -32,6 +32,7 @@ export default function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [status, setStatus] = useState(1);
   const [data, setData] = useState([]);
+  const [predict, setPredict] = useState([]);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -56,6 +57,7 @@ export default function App() {
       console.log("Kết nối thành công");
       client.subscribe("predict/label");
       client.subscribe("ESP32WI/DHT11/Temperature01");
+      client.subscribe("predict5");
     });
 
     client.on("message", (topic, message) => {
@@ -81,6 +83,9 @@ export default function App() {
       } else if (topic === "predict/label") {
         SetForecast(message.toString());
         console.log(forecast);
+      } else if (topic === "predict5") {
+        setPredict(message.toString().split(","));
+        console.log(predict);
       }
     });
     return () => {
@@ -349,12 +354,19 @@ export default function App() {
                     <div className="flex-column">
                       <p className="small">
                         <strong>
-                          {weatherData
+                          {/* {weatherData
                             ? Math.round(
                                 weatherData.list[1].main.feels_like - 275
                               )
+                            : ""} */}
+                          {predict.length > 0
+                            ? Number(predict[0]).toFixed(1)
                             : ""}
-                          °C
+                          °C,
+                          {predict.length > 0
+                            ? Number(predict[5]).toFixed(1)
+                            : ""}{" "}
+                          %
                         </strong>
                       </p>
                       <MDBIcon
@@ -383,12 +395,19 @@ export default function App() {
                     <div className="flex-column">
                       <p className="small">
                         <strong>
-                          {weatherData
+                          {/* {weatherData
                             ? Math.round(
                                 weatherData.list[9].main.feels_like - 275
                               )
+                            : ""} */}
+                          {predict.length > 0
+                            ? Number(predict[1]).toFixed(1)
                             : ""}
-                          °C
+                          °C,
+                          {predict.length > 0
+                            ? Number(predict[6]).toFixed(1)
+                            : ""}{" "}
+                          %
                         </strong>
                       </p>
                       <MDBIcon
@@ -417,12 +436,19 @@ export default function App() {
                     <div className="flex-column">
                       <p className="small">
                         <strong>
-                          {weatherData
+                          {/* {weatherData
                             ? Math.round(
                                 weatherData.list[17].main.feels_like - 275
                               )
+                            : ""} */}
+                          {predict.length > 0
+                            ? Number(predict[2]).toFixed(1)
                             : ""}
-                          °C
+                          °C,{" "}
+                          {predict.length > 0
+                            ? Number(predict[7]).toFixed(1)
+                            : ""}{" "}
+                          %
                         </strong>
                       </p>
                       <MDBIcon
@@ -451,12 +477,19 @@ export default function App() {
                     <div className="flex-column">
                       <p className="small">
                         <strong>
-                          {weatherData
+                          {/* {weatherData
                             ? Math.round(
                                 weatherData.list[25].main.feels_like - 275
                               )
+                            : ""} */}
+                          {predict.length > 0
+                            ? Number(predict[3]).toFixed(1)
                             : ""}
-                          °C
+                          °C,{" "}
+                          {predict.length > 0
+                            ? Number(predict[8]).toFixed(1)
+                            : ""}{" "}
+                          %
                         </strong>
                       </p>
                       <MDBIcon
@@ -485,12 +518,19 @@ export default function App() {
                     <div className="flex-column">
                       <p className="small">
                         <strong>
-                          {weatherData
+                          {/* {weatherData
                             ? Math.round(
                                 weatherData.list[33].main.feels_like - 275
                               )
+                            : ""} */}
+                          {predict.length > 0
+                            ? Number(predict[4]).toFixed(1)
                             : ""}
-                          °C
+                          °C,{" "}
+                          {predict.length > 0
+                            ? Number(predict[9]).toFixed(1)
+                            : ""}{" "}
+                          %
                         </strong>
                       </p>
                       <MDBIcon
